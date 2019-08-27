@@ -42,7 +42,7 @@ describe('redux props', () => {
 
 });
 
-describe('xxx', () => {
+describe('runs getSecretWord in App component', () => {
   test('getSecretWord runs on App mount', () => {
     const getSecretWordMock = jest.fn();
     const props = {
