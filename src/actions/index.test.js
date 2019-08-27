@@ -1,7 +1,6 @@
 import moxios from 'moxios';
 import { storeFactory } from '../../test/testUtils';
 import { getSecretWord } from './index';
-import { expression } from '@babel/template';
 
 describe('get secretWord action creatore', () => {
   beforeEach(() => {
