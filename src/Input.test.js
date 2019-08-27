@@ -59,7 +59,7 @@ describe('redux props', () => {
     const success = true;
     const wrapper = setup({ success });
     const successProp = wrapper.instance().props.success;
-    
+
     expect(successProp).toBe(success);
   });
   test('guessWord action creatore is a function prop', () => {
