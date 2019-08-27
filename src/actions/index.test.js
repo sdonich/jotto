@@ -1,13 +1,11 @@
 import moxios from 'moxios';
 import { storeFactory } from '../../test/testUtils';
-import { getSecreWord } from './index';
+import { getSecretWord } from './index';
+import { expression } from '@babel/template';
 
 describe('get secretWord action creatore', () => {
   beforeEach(() => {
     moxios.install();
-
-
-
   });
   afterEach(() => {
     moxios.uninstall();
@@ -18,15 +16,16 @@ describe('get secretWord action creatore', () => {
     const store = storeFactory();
 
     moxios.wait(() => {
-      const request = moxios.request.mostRecent();
+      const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
         response: secretWord
       });
     });
+    return store.dispatch(getSecretWord())
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.secretWord).toBe(secretWord);
+      })
   });
-
-
-
-
 });
