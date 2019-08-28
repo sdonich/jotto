@@ -96,5 +96,9 @@ describe('guessWord action creator call', () => {
     expect(guessWordArg).toBe(guessedWord);
   });
 
+  test('input box cleard on submit', () => {
+    expect(wrapper.instance().inputBox.current.value).toBe('');
+  });
+
 });
 

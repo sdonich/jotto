@@ -17,6 +17,7 @@ export class UnconnectedInput extends React.Component {
     if (guessedWord && guessedWord.length > 0) {
       this.props.guessWord(guessedWord);
     }
+    this.inputBox.current.value = '';
   }
   render() {
     const contents = this.props.success ?
