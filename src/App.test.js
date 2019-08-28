@@ -42,19 +42,17 @@ describe('redux props', () => {
 
 });
 
-describe('runs getSecretWord in App component', () => {
-  test('getSecretWord runs on App mount', () => {
-    const getSecretWordMock = jest.fn();
-    const props = {
-      getSecretWord: getSecretWordMock,
-      success: false,
-      guessedWords: []
-    }
-    const wrapper = shallow(<UnconnectedApp {...props} />);
-    wrapper.instance().componentDidMount();
+test('getSecretWord runs on App mount', () => {
+  const getSecretWordMock = jest.fn();
+  const props = {
+    getSecretWord: getSecretWordMock,
+    success: false,
+    guessedWords: []
+  }
+  const wrapper = shallow(<UnconnectedApp {...props} />);
+  wrapper.instance().componentDidMount();
 
-    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+  const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
 
-    expect(getSecretWordCallCount).toBe(1);
-  });
+  expect(getSecretWordCallCount).toBe(1);
 });
