@@ -25,6 +25,7 @@ export class UnconnectedApp extends React.Component {
       <div className="container">
         <h1>Jotto</h1>
         <Congrats success={this.props.success} />
+        {this.props.isGiveUp ? carryMessage : <Input />}
         {
           this.props.success || this.props.isGiveUp ?
             <button
@@ -39,7 +40,6 @@ export class UnconnectedApp extends React.Component {
             :
             null
         }
-        {this.props.isGiveUp ? carryMessage : <Input />}
         <GuessedWords
           guessedWords={this.props.guessedWords}
         />
