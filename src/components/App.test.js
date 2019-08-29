@@ -17,12 +17,48 @@ describe('render new game button', () => {
     const newGameButton = findByTestAttr(wrapper, 'new-game-button');
     expect(newGameButton.length).toBe(1);
   });
-  test('when success is false', () => {
-    const success = false;
-    const wrapper = setup({ success });
+  describe('when success is false', () => {
+    test('isGiveUp is false', () => {
+      const isGiveUp = false;
+      const success = false;
+      const wrapper = setup({ success, isGiveUp });
 
-    const newGameButton = findByTestAttr(wrapper, 'new-game-button');
-    expect(newGameButton.length).toBe(0);
+      const newGameButton = findByTestAttr(wrapper, 'new-game-button');
+      expect(newGameButton.length).toBe(0);
+    });
+    test('isGiveUp is true', () => {
+      const isGiveUp = true;
+      const success = false;
+      const wrapper = setup({ success, isGiveUp });
+
+      const newGameButton = findByTestAttr(wrapper, 'new-game-button');
+      expect(newGameButton.length).toBe(1);
+    });
+
+  });
+});
+
+describe('render "carry message"', () => {
+  test('when isGiveUp is true', () => {
+    const isGiveUp = true;
+    const wrapper = setup({ isGiveUp });
+    const carryMessage = findByTestAttr(wrapper, 'carry-message');
+    expect(carryMessage.length).toBe(1);
+  });
+  test('when isGiveUp is false', () => {
+    const isGiveUp = false;
+    const wrapper = setup({ isGiveUp });
+    const carryMessage = findByTestAttr(wrapper, 'carry-message');
+    expect(carryMessage.length).toBe(0);
+  });
+  test('"carry message" shows current secret word', () => {
+    const secretWord = 'party';
+    const isGiveUp = true;
+    const wrapper = setup({ secretWord, isGiveUp });
+    const carryMessage = findByTestAttr(wrapper, 'carry-message');
+    const uncoverWord = carryMessage.find('span');
+
+    expect(uncoverWord.text()).toBe(secretWord);
   });
 });
 
@@ -33,6 +69,13 @@ describe('redux props', () => {
     const successProp = wrapper.instance().props.success;
 
     expect(successProp).toBe(success);
+  });
+  test('has access to isGiveUp state', () => {
+    const isGiveUp = false;
+    const wrapper = setup({ isGiveUp });
+    const isGiveUpProp = wrapper.instance().props.isGiveUp;
+
+    expect(isGiveUpProp).toBe(isGiveUp);
   });
   test('has guessedWords piece of state to props', () => {
     const guessedWords = [{
@@ -104,7 +147,7 @@ describe('action creators running', () => {
       expect(startNewGameMockCallCount).toBe(1);
     });
   });
-  
+
   test('getSecretWord runs on App mount', () => {
     const getSecretWordMock = jest.fn();
     const props = {

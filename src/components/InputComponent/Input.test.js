@@ -53,6 +53,7 @@ describe('renders Input component', () => {
   });
 });
 
+
 describe('redux props', () => {
   test('has success piece of state as prop', () => {
     const success = true;
@@ -98,6 +99,10 @@ describe('guessWord action creator call', () => {
   test('input box cleared after click on submit button', () => {
     expect(wrapper.instance().inputBox.current.value).toBe('');
   });
+
+});
+
+describe('give up acrtion creator call', () => {
 
 });
 

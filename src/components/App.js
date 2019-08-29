@@ -14,12 +14,19 @@ export class UnconnectedApp extends React.Component {
     this.props.getSecretWord();
   }
   render() {
+    const carryMessage = (
+      <div data-test="carry-message">
+        The secret word was <span>{this.props.secretWord}</span>.
+        <br />
+        Better luck next time!
+      </div>
+    );
     return (
       <div className="container">
         <h1>Jotto</h1>
         <Congrats success={this.props.success} />
         {
-          this.props.success ?
+          this.props.success || this.props.isGiveUp ?
             <button
               data-test="new-game-button"
               onClick={() => {
@@ -32,7 +39,7 @@ export class UnconnectedApp extends React.Component {
             :
             null
         }
-        <Input />
+        {this.props.isGiveUp ? carryMessage : <Input />}
         <GuessedWords
           guessedWords={this.props.guessedWords}
         />
@@ -43,8 +50,8 @@ export class UnconnectedApp extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { success, guessedWords, secretWord } = state;
-  return { success, guessedWords, secretWord };
+  const { success, guessedWords, secretWord, isGiveUp } = state;
+  return { success, guessedWords, secretWord, isGiveUp };
 }
 const actionCreators = {
   getSecretWord,
