@@ -2,7 +2,7 @@ import moxios from 'moxios';
 import { storeFactory } from '../../test/testUtils';
 import { getSecretWord } from './';
 
-describe('get secretWord action creatore', () => {
+describe('getSecretWord() action creatore', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -10,7 +10,7 @@ describe('get secretWord action creatore', () => {
     moxios.uninstall();
   });
 
-  test('adds response word to state', () => {
+  test('adds response secret word to state', () => {
     const secretWord = 'party';
     const store = storeFactory();
 

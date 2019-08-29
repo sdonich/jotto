@@ -13,7 +13,7 @@ const setup = (props = {}) => {
   return shallow(<GuessedWords {...setupProps} />);
 };
 
-test('does not throw warning with expecteed props', () => {
+test('does not throw warning with expected props', () => {
   checkProps(GuessedWords, defaultProps);
 });
 
@@ -47,7 +47,7 @@ describe('if there are words guessed', () => {
     const component = findByTestAttr(wrapper, 'component-guessed-words');
     expect(component.length).toBe(1);
   });
-  test('renders guesse words section', () => {
+  test('renders guessed words section', () => {
     const guessedWordsNode = findByTestAttr(wrapper, 'guessed-words');
     expect(guessedWordsNode.length).toBe(1);
   });

@@ -9,7 +9,7 @@ const setup = (initialState = {}) => {
   return shallow(<Input store={store} />).dive().dive();
 }
 
-describe('render', () => {
+describe('renders Input component', () => {
   describe('word has not been guessed', () => {
     let wrapper;
     beforeEach(() => {
@@ -51,7 +51,6 @@ describe('render', () => {
       expect(submitButton.length).toBe(0);
     });
   });
-
 });
 
 describe('redux props', () => {
@@ -96,7 +95,7 @@ describe('guessWord action creator call', () => {
     expect(guessWordArg).toBe(guessedWord);
   });
 
-  test('input box cleard on submit', () => {
+  test('input box cleared after click on submit button', () => {
     expect(wrapper.instance().inputBox.current.value).toBe('');
   });
 
