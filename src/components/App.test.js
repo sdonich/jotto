@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { storeFactory } from '../test/testUtils';
+import { storeFactory } from '../../test/testUtils';
 
 import App, { UnconnectedApp } from './App';
 

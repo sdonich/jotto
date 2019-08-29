@@ -1,4 +1,4 @@
-import {getLetterMatchCount} from './index';
+import {getLetterMatchCount} from './';
 
 describe('getLetterMatchCount', () => {
   const secretWord = 'party';
