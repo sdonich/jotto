@@ -51,8 +51,20 @@ describe('if there are words guessed', () => {
     const guessedWordsNode = findByTestAttr(wrapper, 'guessed-words');
     expect(guessedWordsNode.length).toBe(1);
   });
+  test('renders with correct number of single guessed word in column', () => {
+    const numberCells = findByTestAttr(wrapper, 'guessed-word');
+
+    expect(numberCells.find('td:first-child').at(0).text()).toBe('1');
+    expect(numberCells.find('td:first-child').at(1).text()).toBe('2');
+    expect(numberCells.find('td:first-child').at(2).text()).toBe('3');
+  });
   test('correct number of guessed words', () => {
     const guessedWordsNodes = findByTestAttr(wrapper, 'guessed-word');
     expect(guessedWordsNodes.length).toBe(guessedWords.length);
+  });
+  test('correct total guessed words', () => {
+    const totalGuessedWords = findByTestAttr(wrapper, 'guesses-words-total');
+    const number = totalGuessedWords.find('span');
+    expect(Number(number.text())).toBe(guessedWords.length);
   });
 });
