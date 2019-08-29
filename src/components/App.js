@@ -32,6 +32,15 @@ export class UnconnectedApp extends React.Component {
             :
             null
         }
+        {
+          this.props.success ?
+            null
+            :
+            <button
+              data-test="give-up-button"
+            >Give up</button>
+
+        }
         <Input />
         <GuessedWords
           guessedWords={this.props.guessedWords}

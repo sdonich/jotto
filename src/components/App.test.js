@@ -26,6 +26,23 @@ describe('render new game button', () => {
   });
 });
 
+describe('render give up button', () => {
+  test('when succes is true', () => {
+    const success = true;
+    const wrapper = setup({ success });
+
+    const giveUpButton = findByTestAttr(wrapper, 'give-up-button');
+    expect(giveUpButton.length).toBe(0);
+  });
+  test('when succes is true', () => {
+    const success = false;
+    const wrapper = setup({ success });
+
+    const giveUpButton = findByTestAttr(wrapper, 'give-up-button');
+    expect(giveUpButton.length).toBe(1);
+  });
+});
+
 describe('redux props', () => {
   test('has access to success state', () => {
     const success = false;
@@ -66,20 +83,6 @@ describe('redux props', () => {
 });
 
 describe('action creators running', () => {
-  test('getSecretWord runs on App mount', () => {
-    const getSecretWordMock = jest.fn();
-    const props = {
-      getSecretWord: getSecretWordMock,
-      success: false,
-      guessedWords: []
-    }
-    const wrapper = shallow(<UnconnectedApp {...props} />);
-    wrapper.instance().componentDidMount();
-
-    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
-
-    expect(getSecretWordCallCount).toBe(1);
-  });
   describe('runs action creator with new game', () => {
     let wrapper;
     let clearGuessedWordsMock;
@@ -118,6 +121,22 @@ describe('action creators running', () => {
       expect(startNewGameMockCallCount).toBe(1);
     });
   });
+  describe('runs action crators with give-up', () => {
+    
+  });
+  test('getSecretWord runs on App mount', () => {
+    const getSecretWordMock = jest.fn();
+    const props = {
+      getSecretWord: getSecretWordMock,
+      success: false,
+      guessedWords: []
+    }
+    const wrapper = shallow(<UnconnectedApp {...props} />);
+    wrapper.instance().componentDidMount();
 
+    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+    expect(getSecretWordCallCount).toBe(1);
+  });
 });
 
