@@ -5,7 +5,9 @@ import { getLetterMatchCount } from '../utils';
 export const actionTypes = {
   CORRECT_GUESS: 'CORRECT_GUESS',
   GUESS_WORD: 'GUESS_WORD',
-  SET_SECRET_WORD: 'SET_SECRET_WORD'
+  SET_SECRET_WORD: 'SET_SECRET_WORD',
+  CLEAR_GUESSED_WORDS: 'CLEAR_GUESSED_WORDS',
+  START_NEW_GAME: 'START_NEW_GAME'
 };
 
 export const guessWord = guessedWord => {
@@ -34,4 +36,20 @@ export const getSecretWord = () => {
         });
       })
   };
+}
+
+export const clearGuessedWords = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_GUESSED_WORDS
+    });
+  }
+}
+
+export const startNewGame = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.START_NEW_GAME
+    });
+  }
 }
