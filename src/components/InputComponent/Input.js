@@ -39,6 +39,7 @@ export class UnconnectedInput extends React.Component {
           >
             Submit
           </button>
+          <button data-test="give-up-button" className="btn mb-2">Give up</button>
         </form>
       );
 
