@@ -1,12 +1,13 @@
 import { storeFactory } from '../test/testUtils';
-import { guessWord, clearGuessedWords, startNewGame } from './actions';
+import { guessWord, clearGuessedWords, startNewGame, giveUp } from './actions';
 
 describe('guessWord action dispather', () => {
   const secretWord = 'party';
   const unsuccessfulGuess = 'train';
+  const isGiveUp = false;
   describe('no guesse words', () => {
     let store;
-    const initialState = { secretWord };
+    const initialState = { secretWord, isGiveUp };
     beforeEach(() => {
       store = storeFactory(initialState);
     });
@@ -50,7 +51,8 @@ describe('guessWord action dispather', () => {
     const guessedWords = [{
       guessedWord: 'agile', letterMatchCount: 1
     }];
-    const initialState = { guessedWords, secretWord };
+    const isGiveUp = false;
+    const initialState = { guessedWords, secretWord, isGiveUp };
 
     beforeEach(() => {
       store = storeFactory(initialState);
@@ -105,5 +107,21 @@ describe('guessWord action dispather', () => {
       const newState = store.getState();
       expect(newState.success).toBe(false);
     });
+  });
+});
+
+describe('giveUp() action dispatcher', () => {
+  let store;
+  const isGiveUp = false;
+  const initialState = { isGiveUp };
+  beforeEach(() => {
+    store = storeFactory(initialState);
+  });
+  test('giveUp() update state correctyle', () => {
+    store.dispatch(giveUp());
+    const newState = store.getState();
+    const expectedIsGiveUp = true;
+
+    expect(newState.isGiveUp).toBe(expectedIsGiveUp);
   });
 });

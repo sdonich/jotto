@@ -68,6 +68,12 @@ describe('redux props', () => {
 
     expect(guessWordProp).toBeInstanceOf(Function);
   });
+  test('giveUp() action creatore is a function prop', () => {
+    const wrapper = setup();
+    const giveUpProps = wrapper.instance().props.giveUp;
+    
+    expect(giveUpProps).toBeInstanceOf(Function);
+  });
 });
 
 describe('guessWord action creator call', () => {
@@ -103,6 +109,17 @@ describe('guessWord action creator call', () => {
 });
 
 describe('give up acrtion creator call', () => {
+  test('giveUp() runs when push give up button', () => {
+    const giveUpMock = jest.fn();
+    const props = {
+      giveUp: giveUpMock
+    }
+    const wrapper = shallow(<UnconnectedInput {...props} />);
+    const giveUpButton = findByTestAttr(wrapper, 'give-up-button');
+    giveUpButton.simulate('click');
 
+    const giveUpMockCallCount = giveUpMock.mock.calls.length;
+    expect(giveUpMockCallCount).toBe(1);
+  });
 });
 

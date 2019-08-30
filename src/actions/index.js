@@ -7,7 +7,8 @@ export const actionTypes = {
   GUESS_WORD: 'GUESS_WORD',
   SET_SECRET_WORD: 'SET_SECRET_WORD',
   CLEAR_GUESSED_WORDS: 'CLEAR_GUESSED_WORDS',
-  START_NEW_GAME: 'START_NEW_GAME'
+  START_NEW_GAME: 'START_NEW_GAME',
+  GIVE_UP: 'GIVE_UP'
 };
 
 export const guessWord = guessedWord => {
@@ -50,6 +51,14 @@ export const startNewGame = () => {
   return (dispatch) => {
     dispatch({
       type: actionTypes.START_NEW_GAME
+    });
+  }
+}
+
+export const giveUp = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.GIVE_UP
     });
   }
 }

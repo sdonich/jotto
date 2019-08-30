@@ -1,5 +1,11 @@
 import { actionTypes } from '../actions';
 
 export default (state = false, action) => {
-  return state;
+  switch (action.type) {
+    case actionTypes.GIVE_UP:
+      return true;
+  
+    default:
+      return state;
+  }  
 }
