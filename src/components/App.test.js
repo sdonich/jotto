@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { storeFactory, findByTestAttr } from '../../test/testUtils';
 
 import App, { UnconnectedApp } from './App';
+import { Input } from './'
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
@@ -38,7 +39,7 @@ describe('render new game button', () => {
   });
 });
 
-describe('render "carry message"', () => {
+describe('render "carry message" or Input component', () => {
   test('when isGiveUp is true', () => {
     const isGiveUp = true;
     const wrapper = setup({ isGiveUp });
@@ -50,6 +51,13 @@ describe('render "carry message"', () => {
     const wrapper = setup({ isGiveUp });
     const carryMessage = findByTestAttr(wrapper, 'carry-message');
     expect(carryMessage.length).toBe(0);
+  });
+  test('render Input component when isGiveUp false and success false', () => {
+    const isGiveUp = false;
+    const success = false;
+    const wrapper = setup({ isGiveUp, success });
+    const component = wrapper.find(Input);
+    expect(component.length).toBe(1);
   });
   test('"carry message" shows current secret word', () => {
     const secretWord = 'party';
