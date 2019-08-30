@@ -35,7 +35,6 @@ export class UnconnectedApp extends React.Component {
                 this.props.getSecretWord();
                 this.props.startNewGame();
               }}
-
             >New game</button>
             :
             null

@@ -125,3 +125,16 @@ describe('giveUp() action dispatcher', () => {
     expect(newState.isGiveUp).toBe(expectedIsGiveUp);
   });
 });
+
+describe('startNewGame action dispatcher', () => {
+  test('startNewGame correctly change isGiveUp state', () => {
+    const isGiveUp = true;
+    const initialState = { isGiveUp };
+    const store = storeFactory(initialState);
+    store.dispatch(startNewGame());
+    const newState = store.getState();
+    const expectedIsGiveUp = false;
+
+    expect(newState.isGiveUp).toBe(expectedIsGiveUp)
+  });
+});

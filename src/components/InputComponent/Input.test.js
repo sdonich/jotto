@@ -53,7 +53,6 @@ describe('renders Input component', () => {
   });
 });
 
-
 describe('redux props', () => {
   test('has success piece of state as prop', () => {
     const success = true;
