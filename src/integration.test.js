@@ -18,6 +18,7 @@ describe('guessWord action dispather', () => {
       const expectedState = {
         ...initialState,
         success: false,
+        isEnteringSecretWord: false,
         guessedWords: [
           {
             guessedWord: unsuccessfulGuess,
@@ -34,6 +35,7 @@ describe('guessWord action dispather', () => {
       const expectedState = {
         ...initialState,
         success: true,
+        isEnteringSecretWord: false,
         guessedWords: [
           {
             guessedWord: secretWord,
@@ -65,6 +67,7 @@ describe('guessWord action dispather', () => {
       const expectedState = {
         ...initialState,
         success: false,
+        isEnteringSecretWord: false,
         guessedWords: [...guessedWords, { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }]
       };
       expect(newState).toEqual(expectedState);
@@ -77,6 +80,7 @@ describe('guessWord action dispather', () => {
       const expectedState = {
         ...initialState,
         success: true,
+        isEnteringSecretWord: false,
         guessedWords: [...guessedWords, { guessedWord: secretWord, letterMatchCount: 5 }]
       };
       expect(newState).toEqual(expectedState);

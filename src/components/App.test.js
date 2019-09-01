@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { storeFactory, findByTestAttr } from '../../test/testUtils';
 
 import App, { UnconnectedApp } from './App';
-import { Input } from './'
+import { Input, InputSecretWord } from './'
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
@@ -39,7 +39,29 @@ describe('render new game button', () => {
   });
 });
 
-describe('render "carry message" or Input component', () => {
+describe('render "enter your own secret word" button', () => {
+  test('render when success is false and isGiveUp is false', () => {
+    const success = false;
+    const isGiveUp = false;
+    const wrapper = setup({ success, isGiveUp });
+    const enterOwnWordButton = findByTestAttr(wrapper, 'enter-secret-word');
+    expect(enterOwnWordButton.length).toBe(1);
+  });
+  test('not render when success is true', () => {
+    const success = true;
+    const wrapper = setup({ success });
+    const enterOwnWordButton = findByTestAttr(wrapper, 'enter-secret-word');
+    expect(enterOwnWordButton.length).toBe(0);
+  });
+  test('not render when isGiveUp is true', () => {
+    const isGiveUp = true;
+    const wrapper = setup({ isGiveUp });
+    const enterOwnWordButton = findByTestAttr(wrapper, 'enter-secret-word');
+    expect(enterOwnWordButton.length).toBe(0);
+  });
+});
+
+describe('render carryMessage markup or Input component', () => {
   test('when isGiveUp is true', () => {
     const isGiveUp = true;
     const wrapper = setup({ isGiveUp });
@@ -70,6 +92,21 @@ describe('render "carry message" or Input component', () => {
   });
 });
 
+describe('render InputSecretWord component', () => {
+  test('when isEnteringSecretWord is true', () => {
+    const isEnteringSecretWord = true;
+    const wrapper = setup({ isEnteringSecretWord });
+    const component = wrapper.find(InputSecretWord);
+    expect(component.length).toBe(1);
+  });
+  test('when isEnteringSecretWord is false', () => {
+    const isEnteringSecretWord = false;
+    const wrapper = setup({ isEnteringSecretWord });
+    const component = wrapper.find(InputSecretWord);
+    expect(component.length).toBe(0);
+  });
+});
+
 describe('redux props', () => {
   test('has access to success state', () => {
     const success = false;
@@ -84,6 +121,12 @@ describe('redux props', () => {
     const isGiveUpProp = wrapper.instance().props.isGiveUp;
 
     expect(isGiveUpProp).toBe(isGiveUp);
+  });
+  test('has access to isEnteringSecretWord piece of state', () => {
+    const isEnteringSecretWord = false;
+    const wrapper = setup({ isEnteringSecretWord });
+    const isEnteringSecretWordProp = wrapper.instance().props.isEnteringSecretWord;
+    expect(isEnteringSecretWordProp).toBe(isEnteringSecretWord);
   });
   test('has guessedWords piece of state to props', () => {
     const guessedWords = [{
@@ -113,11 +156,15 @@ describe('redux props', () => {
 
     expect(clearGuessedWords).toBeInstanceOf(Function);
   });
-
+  test('changeSecretWord action cratore is a function prop', () => {
+    const wrapper = setup();
+    const changeSecretWord = wrapper.instance().props.changeSecretWord;
+    expect(changeSecretWord).toBeInstanceOf(Function);
+  });
 });
 
 describe('action creators running', () => {
-  describe('runs action creator with new game', () => {
+  describe('runs action creator related with new game logic', () => {
     let wrapper;
     let clearGuessedWordsMock;
     let getSecretWordMock;
@@ -154,6 +201,19 @@ describe('action creators running', () => {
       const startNewGameMockCallCount = startNewGameMock.mock.calls.length;
       expect(startNewGameMockCallCount).toBe(1);
     });
+  });
+
+  test('changeSecretWord() runs when push button "select your own secret word"', () => {
+    const  changeSecretWordMock = jest.fn();
+    const props = {
+      changeSecretWord: changeSecretWordMock,
+      success: false,
+      guessedWords: []
+    }
+    const wrapper = shallow(<UnconnectedApp {...props} />);
+    const enterOwnWordButton = findByTestAttr(wrapper, 'enter-secret-word');
+    enterOwnWordButton.simulate('click');
+    expect(changeSecretWordMock.mock.calls.length).toBe(1);
   });
 
   test('getSecretWord runs on App mount', () => {

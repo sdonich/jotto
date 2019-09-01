@@ -62,3 +62,9 @@ export const giveUp = () => {
     });
   }
 }
+
+export const changeSecretWord = () => {
+  return (dispatch) => {
+    
+  }
+}

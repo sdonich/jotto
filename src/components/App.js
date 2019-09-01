@@ -4,16 +4,23 @@ import { connect } from 'react-redux';
 import {
   GuessedWords,
   Congrats,
-  Input
+  Input,
+  InputSecretWord
 } from './';
 
-import { getSecretWord, clearGuessedWords, startNewGame } from '../actions';
+import {
+  getSecretWord,
+  clearGuessedWords,
+  startNewGame,
+  changeSecretWord
+} from '../actions';
 
 export class UnconnectedApp extends React.Component {
   componentDidMount() {
     this.props.getSecretWord();
   }
-  render() {
+
+  renderGameMarkup() {
     const carryMessage = (
       <div data-test="carry-message">
         The secret word was <span>{this.props.secretWord}</span>.
@@ -22,8 +29,7 @@ export class UnconnectedApp extends React.Component {
       </div>
     );
     return (
-      <div className="container">
-        <h1>Jotto</h1>
+      <React.Fragment>
         <Congrats success={this.props.success} />
         {this.props.isGiveUp ? carryMessage : <Input />}
         {
@@ -42,20 +48,47 @@ export class UnconnectedApp extends React.Component {
         <GuessedWords
           guessedWords={this.props.guessedWords}
         />
-        <div style={{fontSize: '10px'}}>secret word is: {this.props.secretWord}</div>
-      </div>
+        <div style={{ fontSize: '10px' }}>secret word is: {this.props.secretWord}</div>
+       {
+         this.props.isGiveUp || this.props.success ? 
+          null
+          :
+          <button
+            data-test="enter-secret-word"
+            onClick={this.props.changeSecretWord}
+          >
+            Enter your own secret word
+          </button> 
+       }
+      </React.Fragment>
     );
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <h1>Jotto</h1>
+        {this.props.isEnteringSecretWord ? <InputSecretWord /> : this.renderGameMarkup()}
+      </div>
+    )
   }
 }
 
 const mapStateToProps = state => {
-  const { success, guessedWords, secretWord, isGiveUp } = state;
-  return { success, guessedWords, secretWord, isGiveUp };
+  const {
+    success,
+    guessedWords,
+    secretWord,
+    isGiveUp,
+    isEnteringSecretWord
+  } = state;
+  return { success, guessedWords, secretWord, isGiveUp, isEnteringSecretWord };
 }
 const actionCreators = {
   getSecretWord,
   clearGuessedWords,
-  startNewGame
+  startNewGame,
+  changeSecretWord
 }
 
 export default connect(mapStateToProps, actionCreators)(UnconnectedApp);
