@@ -1,9 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-// import { enterSecretWord } from '../../actions';
-
-export class UnconnectedInputSecretWord extends React.Component {
+export class InputSecretWord extends React.Component {
   render() {
     return (
       <form className="form-inline">
@@ -22,8 +19,4 @@ export class UnconnectedInputSecretWord extends React.Component {
   }
 }
 
-const actionCreator = {
-  // enterSecretWord
-}
-
-export default connect(null, actionCreator)(UnconnectedInputSecretWord);
+export default InputSecretWord;
