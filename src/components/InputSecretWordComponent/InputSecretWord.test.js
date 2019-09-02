@@ -1,5 +1,5 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 // import { storeFactory, findByTestAttr } from '../../../test/testUtils';
 
 // import InputSecretWord, { UnconnectedInputSecretWord } from './InputSecretWord.js';
@@ -8,6 +8,12 @@
 //   const store = storeFactory(initialState);
 //   return shallow(<InputSecretWord store={store} />).dive();
 // }
+
+describe('', () => {
+  test('', () => {
+    
+  });
+});
 
 // describe('redux props', () => {
 //   test('enterSecretWord() is a function prop', () => {

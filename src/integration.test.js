@@ -1,5 +1,5 @@
 import { storeFactory } from '../test/testUtils';
-import { guessWord, clearGuessedWords, startNewGame, giveUp } from './actions';
+import { guessWord, clearGuessedWords, startNewGame, giveUp, changeSecretWord } from './actions';
 
 describe('guessWord action dispather', () => {
   const secretWord = 'party';
@@ -121,7 +121,7 @@ describe('giveUp() action dispatcher', () => {
   beforeEach(() => {
     store = storeFactory(initialState);
   });
-  test('giveUp() update state correctyle', () => {
+  test('giveUp() update state correctly', () => {
     store.dispatch(giveUp());
     const newState = store.getState();
     const expectedIsGiveUp = true;
@@ -140,5 +140,20 @@ describe('startNewGame action dispatcher', () => {
     const expectedIsGiveUp = false;
 
     expect(newState.isGiveUp).toBe(expectedIsGiveUp)
+  });
+});
+
+describe('users choose of entering secret word', () => {
+  let store;
+  const isEnteringSecretWord = false;
+  const initialState = {isEnteringSecretWord};
+  beforeEach(() => {
+    store = storeFactory(initialState);
+  });
+  test('changeSecretWord() update state correctly', () => {
+    store.dispatch(changeSecretWord());
+    const newState = store.getState();
+    const expected = true;
+    expect(newState.isEnteringSecretWord).toBe(expected);
   });
 });
